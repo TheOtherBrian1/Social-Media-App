@@ -8,12 +8,12 @@ import Pins from './Pins';
 import {client} from '../client.js';
 import waddle from '../assets/Waddle.png';
 import { AiFillCloseCircle} from 'react-icons/ai';
-
+import { fetchUser } from '../utils/fetchUser';
 
 export default function Home(){
     const [toggleBar, setToggleBar] = useState(false);
     const [user, setUser] = useState(null);
-    const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+    const userInfo = fetchUser();
     const scrollRef = useRef(null);
     useEffect(() =>{
         const query = userQuery(userInfo?.googleId);

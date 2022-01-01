@@ -14,18 +14,21 @@ export default function Login(){
     const responseGoogle = (response)=>{
         console.log(response);
         localStorage.setItem('user', JSON.stringify(response.profileObj))
-    
-        const {name, googleId, imageUrl} = response.profileObj;
+        console.log(response.profileObj);
+        const {name, googleId, imageUrl, email} = response.profileObj;
     
         const doc = {
             _id: googleId,
             _type: 'user',
+            email: email,
             name: name,
             image: imageUrl
         }
+        console.log('docs was created', doc);
         
         client.createIfNotExists(doc)
             .then(()=>{
+                //navigates to main screen once user is created or if user exists
                 navigate('/', {replace:true})
             })
             .catch((err)=>console.log('Extreme Error', err));
